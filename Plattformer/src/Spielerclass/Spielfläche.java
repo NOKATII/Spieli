@@ -5,11 +5,18 @@ import java.awt.event.KeyEvent;
 
 public class Spielfläche extends JPanel {
     Spieler spieler;
+    private long LastTime;
+    private int frames;
+
+    public Thread gameloop;
 
     public Spielfläche(){
         setPreferredSize(new Dimension(400,400));
         setBackground(Color.LIGHT_GRAY);
-        spieler = new Spieler(200, 200, 400, 20);
+        spieler = new Spieler(40, 40, 400, 20, 20);
+
+        gameloop = new Thread(this::run);
+        gameloop.start();
 
         addKeyListener(new java.awt.event.KeyAdapter() {
             @Override
@@ -18,11 +25,41 @@ public class Spielfläche extends JPanel {
                     spieler.moveLeft();
                 } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
                     spieler.moveRight();
-                } else spieler.moveUp();
+                } else if (e.getKeyCode() == KeyEvent.VK_UP) {
+                    spieler.moveUp();
+                } else if(e.getKeyCode() == KeyEvent.VK_DOWN) {
+                    spieler.moveDown(10);
+                }
                 repaint();
             }
         });
         setFocusable(true);
+    }
+
+    //Gameloop
+    public void run() {
+        final int TARGET_FPS = 60;
+        final long optimalTime = 1000000000 / TARGET_FPS;
+        float fallSpeed = 40;
+
+
+        while (true){
+            long startTime = System.nanoTime();
+            // Berechnung der Gravity des Spielers
+            if(spieler.inAir()){
+                spieler.moveDown(fallSpeed / TARGET_FPS);
+            }
+
+            repaint();
+
+            // Aktuelle Systemzeit - letzte Systemzeit
+            long remainingTime = optimalTime - (System.nanoTime() - startTime);
+            try {
+                Thread.sleep((remainingTime / 1000000) - 2);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void paintComponent (Graphics graphics){
@@ -30,7 +67,17 @@ public class Spielfläche extends JPanel {
         graphics.setColor(Color.BLUE);
         graphics.fillRect(0, 0, 400, 400);
         graphics.setColor(Color.RED);
-        graphics.fillRect(spieler.getxPos(), spieler.getyPos(), 20, 20);
+        graphics.fillRect((int) spieler.getxPos(), (int) spieler.getyPos(), 20, 20);
+        callFps();
+    }
 
+    // FPS Anzahl
+    private void callFps(){
+        frames++;
+        if (System.nanoTime() - LastTime >= 1000000000){
+            System.out.println("FPS: " + frames);
+            frames = 0;
+            LastTime = System.nanoTime();
+        }
     }
 }

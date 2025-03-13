@@ -1,32 +1,35 @@
 package Spielerclass;
 
 public class Spieler {
-    int xPos;
-    int yPos;
+    float xPos;
+    float yPos;
     int wand;
     int width;
+    int height;
+    Boolean isJumping = false;
 
 
-    public Spieler (int xPos, int yPos, int wand, int width){
+
+    public Spieler (int xPos, int yPos, int wand, int width, int height){
         this.xPos = xPos;
         this.yPos = yPos;
         this.wand = wand;
         this.width = width;
-
+        this.height = height;
     }
-    public int getxPos() {
+    public float getxPos() {
         return this.xPos;
     }
 
-    public int getyPos() {
+    public float getyPos() {
         return this.yPos;
     }
 
-    public void setxPos(int xPos) {
+    public void setxPos(float xPos) {
         this.xPos = xPos;
     }
 
-    public void setyPos(int yPos) {
+    public void setyPos(float yPos) {
         this.yPos = yPos;
     }
 
@@ -36,7 +39,7 @@ public class Spieler {
         }
     }
     public void moveLeft(){
-        if (this.xPos > 0){
+        if (this.xPos >= 10){
             this.xPos -= 10;
         }
     }
@@ -45,4 +48,21 @@ public class Spieler {
             this.yPos -= 10;
         }
     }
+
+    //
+    public void moveDown(float distance ){
+        if (this.yPos <= 400 - height - distance){
+            this.yPos += distance;
+        }
+        else this.yPos = 400 - height;
+    }
+
+    public boolean inAir(){
+       return this.yPos < 400 - height;
+    }
+
+
+
+    //Umsetzen, aber wie ? Zukunfts Tom Problem
+    public void jumping(){}
 }
