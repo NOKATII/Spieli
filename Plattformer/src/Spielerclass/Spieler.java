@@ -6,8 +6,6 @@ public class Spieler {
     int wand;
     int width;
     int height;
-    Boolean isJumping = false;
-
 
 
     public Spieler (int xPos, int yPos, int wand, int width, int height){
@@ -60,9 +58,4 @@ public class Spieler {
     public boolean inAir(){
        return this.yPos < 400 - height;
     }
-
-
-
-    //Umsetzen, aber wie ? Zukunfts Tom Problem
-    public void jumping(){}
 }

@@ -2,9 +2,12 @@ package Spielerclass;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 public class Spielfläche extends JPanel {
     Spieler spieler;
+    ArrayList<Barrriere> barrierik = new ArrayList<Barrriere>();
+
     private long LastTime;
     private int frames;
 
@@ -13,7 +16,12 @@ public class Spielfläche extends JPanel {
     public Spielfläche(){
         setPreferredSize(new Dimension(400,400));
         setBackground(Color.LIGHT_GRAY);
-        spieler = new Spieler(40, 40, 400, 20, 20);
+        spieler = new Spieler(200, 20, 400, 20, 20);
+        barrierik.add(new Barrriere(0, 100, 40, 10, 400, 10));
+        barrierik.add(new Barrriere(80, 100, 40, 10, 400, 10));
+        barrierik.add(new Barrriere(160, 100, 40, 10, 400, 10));
+        barrierik.add(new Barrriere(240, 100, 40, 10, 400, 10));
+
 
         gameloop = new Thread(this::run);
         gameloop.start();
@@ -49,6 +57,9 @@ public class Spielfläche extends JPanel {
             if(spieler.inAir()){
                 spieler.moveDown(fallSpeed / TARGET_FPS);
             }
+            for (Barrriere barrriere : barrierik){
+                barrriere.moveLeft();
+            }
 
             repaint();
 
@@ -68,6 +79,10 @@ public class Spielfläche extends JPanel {
         graphics.fillRect(0, 0, 400, 400);
         graphics.setColor(Color.RED);
         graphics.fillRect((int) spieler.getxPos(), (int) spieler.getyPos(), 20, 20);
+        graphics.setColor(Color.BLACK);
+        for (int i = 0; i < barrierik.size(); i++){
+            graphics.fillRect(barrierik.get(i).getxPos_barr(),barrierik.get(i).getyPos_barr(), barrierik.get(i).getWidth_barr(), barrierik.get(i).getHeight_barr());
+        }
         callFps();
     }
 
