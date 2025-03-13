@@ -17,10 +17,10 @@ public class Spielfläche extends JPanel {
         setPreferredSize(new Dimension(400,400));
         setBackground(Color.LIGHT_GRAY);
         spieler = new Spieler(200, 20, 400, 20, 20);
-        barrierik.add(new Barrriere(0, 100, 40, 10, 400, 10));
-        barrierik.add(new Barrriere(80, 100, 40, 10, 400, 10));
-        barrierik.add(new Barrriere(160, 100, 40, 10, 400, 10));
-        barrierik.add(new Barrriere(240, 100, 40, 10, 400, 10));
+        barrierik.add(new Barrriere(0, 100, 40, 10, 400, 5));
+        barrierik.add(new Barrriere(80, 100, 40, 10, 400, 5));
+        barrierik.add(new Barrriere(160, 100, 40, 10, 400, 5));
+        barrierik.add(new Barrriere(240, 100, 90, 10, 400, 5));
 
 
         gameloop = new Thread(this::run);
