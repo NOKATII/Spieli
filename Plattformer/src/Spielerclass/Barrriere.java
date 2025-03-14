@@ -9,7 +9,6 @@ public class Barrriere {
     int speed;
 
 
-
     public Barrriere (int xPos_barr, int yPos_barr, int width_barr, int height_barr, int fieldWidth, int speed){
         this.xPos_barr = xPos_barr;
         this.yPos_barr = yPos_barr;
@@ -35,6 +34,8 @@ public class Barrriere {
         return width_barr;
     }
 
+
+    //Bewegung der Barrieren
     public void moveLeft (){
         if (xPos_barr + width_barr > 0){
             xPos_barr -= speed;

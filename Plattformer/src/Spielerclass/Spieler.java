@@ -47,7 +47,6 @@ public class Spieler {
         }
     }
 
-    //
     public void moveDown(float distance ){
         if (this.yPos <= 400 - height - distance){
             this.yPos += distance;

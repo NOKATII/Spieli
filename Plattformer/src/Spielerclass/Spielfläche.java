@@ -16,6 +16,8 @@ public class Spielfläche extends JPanel {
     public Spielfläche(){
         setPreferredSize(new Dimension(400,400));
         setBackground(Color.LIGHT_GRAY);
+
+        //Erstellung unserer Barrieren
         spieler = new Spieler(200, 20, 400, 20, 20);
         barrierik.add(new Barrriere(0, 100, 40, 10, 400, 5));
         barrierik.add(new Barrriere(80, 100, 40, 10, 400, 5));
