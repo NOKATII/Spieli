@@ -41,5 +41,10 @@ public class Barrriere {
             xPos_barr -= speed;
         } else xPos_barr = fieldWidth;
     }
+    public void moveRight (){
+        if (xPos_barr < fieldWidth){
+            xPos_barr += speed;
+        } else xPos_barr = -width_barr;
+    }
 }
 

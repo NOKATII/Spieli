@@ -6,7 +6,12 @@ import java.util.ArrayList;
 
 public class Spielfläche extends JPanel {
     Spieler spieler;
+
+    //Erstellung der Barrieren von rechts nach links
     ArrayList<Barrriere> barrierik = new ArrayList<Barrriere>();
+
+    //Erstellung der Barrieren von links nach rechts
+    ArrayList<Barrriere> barrierik2 = new ArrayList<Barrriere>();
 
     private long LastTime;
     private int frames;
@@ -17,12 +22,18 @@ public class Spielfläche extends JPanel {
         setPreferredSize(new Dimension(400,400));
         setBackground(Color.LIGHT_GRAY);
 
-        //Erstellung unserer Barrieren
         spieler = new Spieler(200, 20, 400, 20, 20);
-        barrierik.add(new Barrriere(0, 100, 40, 10, 400, 5));
-        barrierik.add(new Barrriere(80, 100, 40, 10, 400, 5));
-        barrierik.add(new Barrriere(160, 100, 40, 10, 400, 5));
-        barrierik.add(new Barrriere(240, 100, 90, 10, 400, 5));
+
+        //Erstellung unserer Barrieren (rechts nach links)
+        barrierik.add(new Barrriere(0, 100, 40, 10, 400, 3));
+        barrierik.add(new Barrriere(80, 100, 40, 10, 400, 3));
+        barrierik.add(new Barrriere(160, 100, 40, 10, 400, 3));
+        barrierik.add(new Barrriere(240, 100, 90, 10, 400, 3));
+
+        //Erstellung unsere Barrieren (von links nach rechts)
+        barrierik2.add(new Barrriere(300, 210, 40, 10, 400, 5));
+        barrierik2.add(new Barrriere(100, 210, 40, 10, 400, 5));
+        barrierik2.add(new Barrriere(200, 210, 40, 10, 400, 5));
 
 
         gameloop = new Thread(this::run);
@@ -37,8 +48,6 @@ public class Spielfläche extends JPanel {
                     spieler.moveRight();
                 } else if (e.getKeyCode() == KeyEvent.VK_UP) {
                     spieler.moveUp();
-                } else if(e.getKeyCode() == KeyEvent.VK_DOWN) {
-                    spieler.moveDown(10);
                 }
                 repaint();
             }
@@ -62,6 +71,9 @@ public class Spielfläche extends JPanel {
             for (Barrriere barrriere : barrierik){
                 barrriere.moveLeft();
             }
+            for (Barrriere barrriere : barrierik2){
+                barrriere.moveRight();
+            }
 
             repaint();
 
@@ -84,6 +96,9 @@ public class Spielfläche extends JPanel {
         graphics.setColor(Color.BLACK);
         for (int i = 0; i < barrierik.size(); i++){
             graphics.fillRect(barrierik.get(i).getxPos_barr(),barrierik.get(i).getyPos_barr(), barrierik.get(i).getWidth_barr(), barrierik.get(i).getHeight_barr());
+        }
+        for (int i = 0; i < barrierik2.size(); i++){
+            graphics.fillRect(barrierik2.get(i).getxPos_barr(),barrierik2.get(i).getyPos_barr(), barrierik2.get(i).getWidth_barr(), barrierik2.get(i).getHeight_barr());
         }
         callFps();
     }

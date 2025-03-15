@@ -43,10 +43,11 @@ public class Spieler {
     }
     public void moveUp(){
         if (this.yPos >0){
-            this.yPos -= 10;
+            this.yPos -= 5;
         }
     }
 
+    //Bewegung des Spielers nach unten + Berechnug für den Fall
     public void moveDown(float distance ){
         if (this.yPos <= 400 - height - distance){
             this.yPos += distance;
